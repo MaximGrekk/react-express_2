@@ -23,29 +23,29 @@ function App() {
       body: JSON.stringify({id})
     })
     .then(res => res.json())
-    setTodos((prev) => prev.filter(t => t.id !== id))
+    .then(setTodos((prev) => prev.filter(t => t.id !== id)))
   }
   // C
-  const addTask = (input) => {
-    if(input) {
-      const newItem = {
-        // id: parseInt(Math.random().toString(10).substr(0, 7)*1000000000),
-        id: todos.length,
-        body: input,
-        // complete: false
-      }
-      fetch("http://localhost:8000", {
-        method: "POST",
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(newItem)
-      })
-      .then(res => res.json())
-      .then(prev => setTodos(prev))
-      // setTodos([...todos, newItem])
-    }
-  }
+  // const addTask = (input) => {
+  //   if(input) {
+  //     const newItem = {
+  //       // id: parseInt(Math.random().toString(10).substr(0, 7)*1000000000),
+  //       id: todos.length,
+  //       title: input,
+  //       // complete: false
+  //     }
+  //     fetch("http://localhost:8000", {
+  //       method: "POST",
+  //       headers: {
+  //         'Content-type': 'application/json'
+  //       },
+  //       body: JSON.stringify(newItem)
+  //     })
+  //     .then(res => res.json())
+  //     .then(prev => setTodos(prev))
+  //     // setTodos([...todos, newItem])
+  //   }
+  // }
   // R
   useEffect(() => {
     fetch('http://localhost:8000', {method: "GET"})
@@ -67,7 +67,7 @@ function App() {
   return (
     <>
       <h1 style={styles.title}>To Do List</h1>
-      <ToDoForm name="Artem" todos={todos} remove={remove} addTask={addTask}/>
+      <ToDoForm name="Artem" todos={todos} setTodos={setTodos} remove={remove} />
       <p className="text-center py-2">
       </p>
     </>

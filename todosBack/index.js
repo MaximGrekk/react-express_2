@@ -11,10 +11,10 @@ const PORT = 8000;
 server.post('/', (req, res,) => {
   const body = req.body; // тело запроса в переменную body
   console.log('body: ', body); // проверка
-  fs.readFile('./todos.json', (err, data) => {
+  fs.readFile('./todos.json', 'utf-8', (err, data) => {
     const db = JSON.parse(data);
-    console.log('data:', data.todos); // проверка
-    data.todos.push(req.body); // закидываем в конец массива todos из todos.json
+    console.log('data:', data); // проверка
+    db.todos.push(req.body); // закидываем в конец массива todos из todos.json
 
     fs.writeFile('./todos.json', JSON.stringify(db), (err) => {
       if (err) {
